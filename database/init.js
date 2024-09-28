@@ -5,7 +5,7 @@
  */
 
 const Database = require('better-sqlite3');
-const path = require('path');
+const path = require('node:path');
 const config = require('../config/config');
 
 const dbPath = path.resolve(config.databasePath);
@@ -27,7 +27,7 @@ function initializeDatabase() {
 
   db.exec(`
     create table if not exists time_reports (
-      id integer primary key autoincrement,
+      id integer primary key,
       upload_date date not null
     );
   `);
@@ -48,10 +48,19 @@ function initializeDatabase() {
 
   console.log("Database is now set up!");
 
-  const tables = db.prepare("SELECT name FROM sqlite_master WHERE type='table';").all();
+  const tables = db.prepare("select name from sqlite_master where type='table';").all();
   tables.forEach(table => {
     console.log(table.name);
   });
+
+  // initialize job groups with A and B
+  const insertJobGroup = db.prepare(`
+    insert into job_groups (name, hourly_rate)
+    values (?, ?)
+  `);
+
+  insertJobGroup.run('A', 2000);
+  insertJobGroup.run('B', 3000);
 
   db.close();
 }
