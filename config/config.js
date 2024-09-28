@@ -6,4 +6,5 @@ require('dotenv').config();
 
 exports.port = process.env.PORT || 3300;
 exports.build = process.env.BUILD || 'debug';
+exports.maxUploadSize =  Number(process.env.MAX_UPLOAD_SIZE || 2 * 1024 * 1024);
 

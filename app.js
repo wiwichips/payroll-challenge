@@ -4,25 +4,11 @@
  */
 
 const createExpressApp = require('express');
-const multer = require('multer');
 const config = require('./config/config');
+const routes = require('./src/routes');
 
 const app = createExpressApp();
-
-const upload = multer({
-  storage: multer.memoryStorage(),
-  limits: { fileSize: 10 * 10 * 10 },
-});
-
-app.get('/report', (req, res) => {
-  res.json({ hello: 'world' });
-});
-
-app.post('/report', upload.single('file'), (req, res) => {
-  console.log(req);
-  console.log(req.file.buffer.toString());
-  res.json({ ijustgot: 'yourcsvfile (:' });
-});
+app.use(routes);
 
 app.listen(config.port, () => console.log(`> http://localhost:${config.port}`));
 
