@@ -1,0 +1,48 @@
+/**
+ * Colours stolen from https://next.waveapps.com/
+ */
+html, body {
+  background-color: #ffffff;
+}
+
+.swagger-ui .topbar {
+  background-color: #f5faff;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+h2,
+h3 {
+  color: #001b66 !important;
+}
+
+.swagger-ui .topbar .topbar-wrapper .link span {
+  color: #001b66;
+  font-weight: bold;
+}
+
+.swagger-ui .btn {
+  background-color: #2046cf;
+  color: #ffffff;
+  border-radius: 5px;
+}
+
+.swagger-ui .btn:hover {
+  background-color: #001b66;
+}
+
+/* Logo */
+.swagger-ui .topbar .topbar-wrapper .link svg {
+  display: none !important; /* remove swagger logo, not sure if I'm allowed to do this but it's just for fun! :D */
+}
+
+.swagger-ui .topbar .topbar-wrapper .link:before {
+  content: '';
+  display: inline-block;
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/1/15/Wave_logo_RGB.png'); /* TODO: serve this as a static file */
+  background-size: contain;
+  width: 150px; /* Adjust width */
+  height: 50px; /* Adjust height */
+  margin-right: 10px;
+  background-repeat: no-repeat;
+}
+

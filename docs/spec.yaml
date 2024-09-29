@@ -1,0 +1,139 @@
+openapi: 3.0.0
+info:
+  title: SE Challenge Payroll API
+  description: API for uploading CSV files and retrieving payroll reports.
+  version: 0.0.1
+paths:
+  /reports:
+    post:
+      summary: Upload a time report CSV file
+      description: |
+        Upload a CSV file with the report of employee work hours. 
+        The file name must follow the the format `time-report-{reportId}.csv`, where `{reportId}` is an integer. 
+        The `reportId` is extracted from the file name. If the report with the same `reportId` already exists, 
+        the upload will be rejected.
+        The CSV file must contain the following columns with labelled headers (`date`, `hours worked`,
+        `employee id`, `job group`). `date` data must be in the format DD/MM/YYYY.
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: The CSV file to upload.
+      responses:
+        '200':
+          description: Successfully uploaded
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "CSV data successfully uploaded"
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '409':
+          $ref: '#/components/responses/ErrorResponse'
+
+    get:
+      summary: Retrieve payroll reports
+      parameters:
+        - name: employeeId
+          in: query
+          description: Employee ID filter
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/PayrollReportSuccess'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+  
+  /reports/{id}:
+    get:
+      summary: Retrieve a specific payroll report by its reportId
+      parameters:
+        - name: id
+          in: path
+          description: The ID of the report to retrieve
+          required: true
+          schema:
+            type: integer
+        - name: employeeId
+          in: query
+          description: Employee ID filter
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          $ref: '#/components/responses/PayrollReportSuccess'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+
+components:
+  responses:
+    PayrollReportSuccess:
+      description: Successfully retrieved payroll report
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
+              data:
+                type: object
+                properties:
+                  payrollReport:
+                    type: object
+                    properties:
+                      employeeReports:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            employeeId:
+                              type: string
+                              example: "1"
+                            payPeriod:
+                              type: object
+                              properties:
+                                startDate:
+                                  type: string
+                                  format: date
+                                  example: "2024-01-01"
+                                endDate:
+                                  type: string
+                                  format: date
+                                  example: "2024-01-15"
+                            amountPaid:
+                              type: string
+                              example: "$300.00"
+    ErrorResponse:
+      description: Generic error response for various HTTP error codes
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: false
+              message:
+                type: string
+                example: "error message here"
+

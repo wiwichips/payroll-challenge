@@ -13,14 +13,16 @@ const validateReport = require('./middleware/validate-report-csv');
 const router = express.Router();
 
 router.post(
-  '/report',
+  '/reports',
   upload.single('file'),
   readCSV,
   validateReport,
   newReport,
 );
 
-router.get('/report', getReport);
+router.get('/reports', getReport);
+
+router.get('/reports/:employeeId', getReport);
 
 // for health checks
 router.get('/status', getStatus);

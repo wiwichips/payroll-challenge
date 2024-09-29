@@ -4,14 +4,14 @@
 
 function success(res, data, statusCode = 200) {
   res.status(statusCode).json({
-    status: 'success',
+    success: true,
     data,
   });
 };
 
 function error(res, message, statusCode = 500) {
   res.status(statusCode).json({
-    status: 'error',
+    success: false,
     message,
   });
 };
