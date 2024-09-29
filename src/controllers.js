@@ -6,7 +6,7 @@ const dbService = require('./services/db');
 
 const dbConnection = dbService.connection;
 
-async function processUploadedReport(req, res) {
+function processUploadedReport(req, res) {
   console.log(req.locals.report.data);
   console.log(req.locals.report.id);
 
@@ -50,11 +50,16 @@ async function processUploadedReport(req, res) {
   sendResponse.success(res, { ijustgot: 'yourcsvfile (:' }, 200);
 }
 
-async function getReport(req, res) {
+function getReport(req, res) {
   console.log(req);
   sendResponse.error(res, { hello: 'world' });
 }
 
+function getStatus(req, res) {
+  sendResponse.success(res, 'Alive');
+}
+
 exports.processReport = processUploadedReport;
 exports.getReport = getReport;
+exports.getStatus = getStatus;
 

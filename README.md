@@ -1,6 +1,20 @@
 # Payroll Challenge
 
 ## Instructions on how to build/run your application
+Using a Docker container:
+```sh
+$ docker build -t will-pringle-se-challenge-payroll .
+$ docker run -p 3300:3300 --name payroll-app will-pringle-se-challenge-payroll
+# verify it's working by making a request to /status
+$ curl localhost:3300/status
+```
+
+Running natively:
+```sh
+$ npm i
+$ node app.js # note, this has only been tested on Node 20
+$ curl localhost:3300/status
+```
 
 ## Questions
 

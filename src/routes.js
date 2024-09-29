@@ -20,5 +20,8 @@ router.post(
 
 router.get('/report', controllers.getReport);
 
+// for health checks
+router.get('/status', controllers.getStatus);
+
 module.exports = router;
 
