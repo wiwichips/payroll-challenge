@@ -1,8 +1,8 @@
 /**
  * Description: Insert report data into the database.
  */
-const sendResponse = require('./helpers/response');
-const dbService = require('./services/db');
+const sendResponse = require('../helpers/response');
+const dbService = require('../services/db');
 
 const dbConnection = dbService.connection;
 
@@ -47,19 +47,8 @@ function processUploadedReport(req, res) {
   });
   insertWorkEntriesMany(req.locals.report.data);
 
-  sendResponse.success(res, { ijustgot: 'yourcsvfile (:' }, 200);
+  sendResponse.success(res, { ijustgot: 'yourcsvfile (:' }, 201);
 }
 
-function getReport(req, res) {
-  console.log(req);
-  sendResponse.error(res, { hello: 'world' });
-}
-
-function getStatus(req, res) {
-  sendResponse.success(res, 'Alive');
-}
-
-exports.processReport = processUploadedReport;
-exports.getReport = getReport;
-exports.getStatus = getStatus;
+exports.newReport = processUploadedReport;
 

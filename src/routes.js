@@ -3,7 +3,9 @@
  */
 const express = require('express');
 
-const controllers = require('./controllers');
+const { newReport } = require('./controllers/new-report');
+const { getReport } = require('./controllers/get-report');
+const { getStatus } = require('./controllers/status');
 const upload = require('./middleware/upload');
 const readCSV = require('./middleware/read-csv');
 const validateReport = require('./middleware/validate-report-csv');
@@ -15,13 +17,13 @@ router.post(
   upload.single('file'),
   readCSV,
   validateReport,
-  controllers.processReport,
+  newReport,
 );
 
-router.get('/report', controllers.getReport);
+router.get('/report', getReport);
 
 // for health checks
-router.get('/status', controllers.getStatus);
+router.get('/status', getStatus);
 
 module.exports = router;
 
