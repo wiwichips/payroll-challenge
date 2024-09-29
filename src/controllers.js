@@ -32,7 +32,7 @@ function processUploadedReport(req, res) {
   // Insert data into work entries table
   const insertWorkEntry = dbConnection.prepare(`
     insert into work_entries (date, time_duration, job_group, employee_id, report_id)
-    values (?, ?, ?, ?, 42)
+    values (?, ?, ?, ?, ?)
   `);
   const insertWorkEntriesMany = dbConnection.transaction((dataArray) => {
     for (const entry of dataArray) {
@@ -41,7 +41,7 @@ function processUploadedReport(req, res) {
         entry['hours worked'] * 60 * 60,
         entry['job group'],
         entry['employee id'],
-        //req.locals.report.id,
+        req.locals.report.id,
       );
     }
   });
