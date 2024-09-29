@@ -6,7 +6,7 @@ const { checkExists } = require('../services/db');
 const sendResponse = require('../helpers/response');
 
 function checkEmployeeId(req, res, next) {
-  const employeeId = req.query.employeeid;
+  const employeeId = req.query.employeeid || req.query.employeeId; // case insensitive
   req.locals = req.locals || {};
 
   if (employeeId) {
