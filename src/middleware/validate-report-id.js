@@ -8,8 +8,6 @@ const sendResponse = require('../helpers/response');
 function checkReportId(req, res, next) {
   const reportId = req.params.reportId;
   req.locals = req.locals || {};
-  console.log("~~~~~~~~~~~~~");
-  console.log(req.params.reportId);
 
   if (reportId) {
     const timeReoprtExists = checkExists('time_reports', reportId);

@@ -12,7 +12,6 @@ function setupTestDB() {
   const testDBPath = path.join(__dirname, 'databases', `test-database-${randomString}.db`);
   
   process.env.DATABASE_PATH = testDBPath;
-  process.env.PORT = 3301;
   
   // Execute database init by requiring it
   require('../database/init');
@@ -21,7 +20,8 @@ function setupTestDB() {
   
   // Listen on a test port and return the server instance
   return new Promise((resolve) => {
-    const server = app.listen(process.env.PORT, () => {
+    const server = app.listen(0, () => {
+      process.env.PORT = server.address().port;
       console.log(`Test server running on port ${process.env.PORT}`);
       resolve(server); // resolve the server instance
     });
