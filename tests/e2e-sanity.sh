@@ -19,5 +19,5 @@ fi
 
 # Run the test when any .js files change
 #find $test_dir/.. -name "*.js" | entr -c sh -c "sleep 0.1 && curl -F 'file=@$resource_file' 'localhost:$PORT/reports' | jq"
-find $test_dir/.. -name "*.js" | entr -c sh -c "sleep 0.1 && curl 'localhost:$PORT/reports' | jq"
+find $test_dir/.. -name "*.js" | entr -c sh -c "sleep 0.1 && curl 'localhost:$PORT/reports/42?employeeid=1' | jq"
 

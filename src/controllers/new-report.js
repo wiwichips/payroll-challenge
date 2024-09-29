@@ -7,15 +7,13 @@ const dbService = require('../services/db');
 const dbConnection = dbService.connection;
 
 function processUploadedReport(req, res) {
-  console.log(req.locals.report.data);
-  console.log(req.locals.report.id);
-
   // insert into time reports id and date
+  const reportId = req.locals.report.id;
   const insertTimeReport = dbConnection.prepare(`
     insert into time_reports (id, upload_date)
     values (?, ?)
   `);
-  insertTimeReport.run(req.locals.report.id, new Date().toISOString().slice(0, 10));
+  insertTimeReport.run(reportId, new Date().toISOString().slice(0, 10));
 
   // insert into the employees table
   const employeeIds = new Set();
@@ -47,7 +45,7 @@ function processUploadedReport(req, res) {
   });
   insertWorkEntriesMany(req.locals.report.data);
 
-  sendResponse.success(res, { ijustgot: 'yourcsvfile (:' }, 201);
+  sendResponse.success(res, { id: reportId }, 201);
 }
 
 exports.newReport = processUploadedReport;

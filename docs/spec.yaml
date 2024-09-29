@@ -36,9 +36,9 @@ paths:
                   success:
                     type: boolean
                     example: true
-                  message:
-                    type: string
-                    example: "CSV data successfully uploaded"
+                  id:
+                    type: number
+                    example: 324
         '400':
           $ref: '#/components/responses/ErrorResponse'
         '409':

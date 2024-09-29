@@ -7,11 +7,14 @@ const dbService = require('../services/db');
 const dbConnection = dbService.connection;
 
 function getReport(req, res) {
+  const { employeeId, reportId } = req.locals;
+
   const selectstatement = dbConnection.prepare(`
     select *
     from work_entries
     order by employee_id, date
   `);
+
   const workEntries = selectstatement.all();
   sendResponse.success(res, { payrollReport: workEntries });
 }
