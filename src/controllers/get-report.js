@@ -7,8 +7,13 @@ const dbService = require('../services/db');
 const dbConnection = dbService.connection;
 
 function getReport(req, res) {
-
-  sendResponse.success(res, { hello: 'world' });
+  const selectstatement = dbConnection.prepare(`
+    select *
+    from work_entries
+    order by employee_id, date
+  `);
+  const workEntries = selectstatement.all();
+  sendResponse.success(res, { payrollReport: workEntries });
 }
 
 exports.getReport = getReport;
