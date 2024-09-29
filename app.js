@@ -21,8 +21,13 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
   customCssUrl: '/swagger-theme.css',
 }));
 
-app.listen(config.port, () => {
-  console.log(`> Running  http://localhost:${config.port}`);
-  console.log(`> API Docs http://localhost:${config.port}/docs`);
-});
+// listen on port if this file is being executed
+if (require.main === module) {
+  app.listen(config.port, () => {
+    console.log(`> Running  http://localhost:${config.port}`);
+    console.log(`> API Docs http://localhost:${config.port}/docs`);
+  });
+}
+
+module.exports = app;
 
