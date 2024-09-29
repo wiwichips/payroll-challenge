@@ -10,7 +10,8 @@ const yaml = require('yamljs');
 const config = require('./config/config');
 const routes = require('./src/routes');
 
-const swaggerSpec = yaml.load('./docs/spec.yaml');
+const specPath = path.join(__dirname, 'docs', 'spec.yaml');
+const swaggerSpec = yaml.load(specPath);
 
 const app = express();
 app.use(routes);
