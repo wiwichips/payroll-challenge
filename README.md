@@ -97,6 +97,7 @@ Other
 - Rate limiting (for performance and to avoid attacks)
 - `/reports` pagination (so the client can consume the data at a comfortable pace for themselves and the server - don't want the page loading the data to get really laggy)
 - Continuous Deployment (reducing the time it takes for a code change to land in production makes teams perform better)
+- Caching responses to popular requests (While I was an intern at Wave I implemented caching for GraphQL queries which reduced the size of data transmitted to the server by a large amount for some complicated requests. This payroll server could benefit from a caching optimization as well so it doesn't have to hit the database quite as frequently)
 
 ### What compromises did you have to make as a result of the time constraints of this challenge?
 
