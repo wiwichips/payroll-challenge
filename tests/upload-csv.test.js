@@ -26,6 +26,21 @@ describe('POST /reports - CSV Upload', () => {
     expect(res.body.success).toBe(true);
   });
 
+  it('should upload a CSV with no rows successfully', async () => {
+    const res = await request(server)
+      .post('/reports')
+      .attach('file', path.join(__dirname, 'resources/time-report-0.csv'))
+      .expect(201);
+
+    expect(res.body.success).toBe(true);
+
+    const getRes = await request(server)
+      .get(`/reports/0`)
+      .expect(200);
+
+    expect(getRes.body.data.payrollReport.employeeReports.length).toBe(0);
+  });
+
   it('should fail to upload when the file name is invalid', async () => {
     const res = await request(server)
       .post('/reports')
