@@ -103,6 +103,7 @@ Other
 
 - I wanted to have more thorough testing, many of the error cases are untested such as exceeding the maximum file size and other cases like that. 
 - Database and SQL logic are tightly coupled with controllers and middleware. Ideally, they should be separated to increase modularity and reusability. See my point above about ORMs and Sqlite3 as well. 
+- I wanted to have more fine grained sorting and an API for restricting the time periods for a report to be generated. For instance, it would be useful to select a range of dates to examine instead of just receiving everything. Also see my point above about pagination.
 
 ## Models / Entities
 
