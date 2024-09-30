@@ -48,7 +48,7 @@ function validateReportCSV(req, res, next) {
   // filename should match expected format
   const reportId = parseReportFilename(filename);
 
-  if (!reportId)
+  if (reportId === false)
     return sendResponse.error(res, `Invalid filename "${filename}"`, 422);
 
   req.locals.report.id = reportId;
